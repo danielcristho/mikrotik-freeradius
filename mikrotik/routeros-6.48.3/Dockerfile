@@ -1,0 +1,11 @@
+FROM evilfreelancer/docker-routeros:6.48.3
+
+EXPOSE 5900
+
+EXPOSE 1194 1701 1723 1812/udp 1813/udp 2021 2022 2023 2027 21 22 23 443 4500/udp 50 500/udp 51 5900 80 8080 8291 8728 8729 8900
+
+WORKDIR /routeros
+
+ENV ROUTEROS_VERSON=6.48.3
+ENV ROUTEROS_IMAGE=chr-6.48.3.vdi
+ENV ROUTEROS_PATH=https://download.mikrotik.com/routeros/6.48.3/chr-6.48.3.vdi

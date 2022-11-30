@@ -1,4 +1,4 @@
-FROM debian:buster-20221114-slim
+FROM debian:10.13-slim
 
 RUN apt-get update && apt-get install -y \
     freeradius \
