@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+    freeradius:
+            build:
+                context: .
+                dockerfile: Dockerfile 
+            container_name: freeradius
+            restart: unless-stopped
+            depends_on:
+              - mariadb
+            networks:
+              - radius
+
+    mariadb:
+      image: mariadb/server:10.5
+      container_name: mariadb
+      environment:
+        - MYSQL_ROOT_PASSWORD=super 
+        - MYSQL_USER=radtest
+        - MYSQL_PASSWORD=radsecret
+        - MYSQL_DATABASE=radius
+      restart: unless-stopped
+      volumes:
+        - "./config/mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql"
+      networks:
+        - radius
+
+networks:
+  radius:
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+
