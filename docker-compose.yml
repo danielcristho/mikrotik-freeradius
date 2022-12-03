@@ -1,16 +1,19 @@
-version: '3'
+version: '3.7'
 
 services:
     freeradius:
-        build:
-            context: .
-            dockerfile: freeradius/Dockerfile 
-        container_name: freeradius
-        restart: unless-stopped
-        depends_on:
-          - mariadb
-        networks:
-          - radius
+      # image: freeradius/freeradius-server:latest-3.0
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: freeradius
+      restart: always
+      depends_on:
+        - mariadb
+      volumes:
+        - "./config/radius/clients.conf"
+      networks:
+        - radius
 
     routeros-6-48:
       image: evilfreelancer/docker-routeros:6.48.3
