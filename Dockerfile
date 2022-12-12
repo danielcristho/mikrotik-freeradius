@@ -1,4 +1,4 @@
-FROM freeradius/freeradius-server:latest-3.2
+FROM ubuntu:xenial
 
 RUN apt-get update && apt-get dist-upgrade -y
 RUN apt-get install nano \
@@ -7,5 +7,7 @@ RUN apt-get install nano \
                     net-tools \
                     wget \
                     curl -y
+RUN apt-get clean
 
-EXPOSE 1812 1813
+CMD ["freeradius -X"]
+# EXPOSE 1812 1813
