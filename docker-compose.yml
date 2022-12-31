@@ -2,7 +2,6 @@ version: '3.7'
 
 services:
     freeradius:
-      # image: freeradius/freeradius-server:latest-3.0
       build:
         context: .
         dockerfile: Dockerfile
@@ -10,10 +9,11 @@ services:
       restart: always
       depends_on:
         - mariadb
-      volumes:
-        - "./config/radius/clients.conf"
+      # volumes:
+      #   - "./config/radius/clients.conf"
       networks:
-        - radius
+        radius:
+          ipv4_address: 10.0.0.10
 
     routeros-6-48:
       image: evilfreelancer/docker-routeros:6.48.3
@@ -29,7 +29,8 @@ services:
         - "28728:8728"
         - "28729:8729"
       networks:
-        - radius
+        radius:
+          ipv4_address: 10.0.0.2
 
     mariadb:
       image: mariadb/server:10.5
@@ -43,7 +44,8 @@ services:
       volumes:
         - "./config/mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql"
       networks:
-        - radius
+        radius:
+          ipv4_address: 10.0.0.3
 
 networks:
   radius:

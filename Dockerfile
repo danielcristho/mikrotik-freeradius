@@ -10,4 +10,5 @@ RUN apt-get install nano \
 RUN apt-get clean
 
 CMD ["freeradius -X"]
-# EXPOSE 1812 1813
+
+EXPOSE 1812 1813
